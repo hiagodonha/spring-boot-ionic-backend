@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hiagodonha.mc.dao.CategoriaDao;
 import com.hiagodonha.mc.model.Categoria;
 import com.hiagodonha.mc.services.CategoriaService;
+
+import javassist.tools.rmi.ObjectNotFoundException;
 
  @RestController
  @RequestMapping("categorias")
@@ -18,6 +21,9 @@ import com.hiagodonha.mc.services.CategoriaService;
 	 
 	 @Autowired
 	 CategoriaService categoriaService;
+	 
+	 @Autowired
+	 CategoriaDao categoriaDao;
 	 
 	 @GetMapping
 	 public List<Categoria> listar() {
@@ -33,8 +39,8 @@ import com.hiagodonha.mc.services.CategoriaService;
 	 }
 	 
 	 @GetMapping("/{id}")
-	 public Integer get(@PathVariable Integer id) { //O PathVariablel está anotation é responsavel por pegar o valor que vem na url e joga na variavel passada por parametro
-		 return categoriaService.bucar(id).getId();
+	 public Categoria get(@PathVariable Integer id) throws ObjectNotFoundException { //O PathVariablel está anotation é responsavel por pegar o valor que vem na url e joga na variavel passada por parametro
+		 return categoriaService.bucar(id);
 	 }
 	 
 }
