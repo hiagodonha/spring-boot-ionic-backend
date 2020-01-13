@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.hiagodonha.mc.dao.CategoriaDao;
+import com.hiagodonha.mc.dao.CidadeDao;
+import com.hiagodonha.mc.dao.EstadoDao;
 import com.hiagodonha.mc.dao.ProdutoDao;
 import com.hiagodonha.mc.model.Categoria;
+import com.hiagodonha.mc.model.Cidade;
+import com.hiagodonha.mc.model.Estado;
 import com.hiagodonha.mc.model.Produto;
 
 @SpringBootApplication
@@ -19,6 +23,10 @@ public class CursoApplication implements CommandLineRunner {
 	private CategoriaDao categoriaDao;
 	@Autowired
 	private ProdutoDao produtoDao;
+	@Autowired
+	private EstadoDao estadoDao;
+	@Autowired
+	private CidadeDao cidadeDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoApplication.class, args);
@@ -44,6 +52,19 @@ public class CursoApplication implements CommandLineRunner {
 		
 		categoriaDao.saveAll(Arrays.asList(cat1,cat2));
 		produtoDao.saveAll(Arrays.asList(p1,p2,p3));
+		
+		Estado est1 = new Estado(null, "Uberlândia");
+		Estado est2 = new Estado(null, "São Paulo");
+		
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+		
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2,c3));
+		
+		estadoDao.saveAll(Arrays.asList(est1,est2));
+		cidadeDao.saveAll(Arrays.asList(c1, c2, c3));
 	}
 
 }
