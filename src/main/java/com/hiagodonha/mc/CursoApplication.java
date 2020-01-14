@@ -9,12 +9,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.hiagodonha.mc.dao.CategoriaDao;
 import com.hiagodonha.mc.dao.CidadeDao;
+import com.hiagodonha.mc.dao.ClienteDao;
+import com.hiagodonha.mc.dao.EnderecoDao;
 import com.hiagodonha.mc.dao.EstadoDao;
 import com.hiagodonha.mc.dao.ProdutoDao;
 import com.hiagodonha.mc.model.Categoria;
 import com.hiagodonha.mc.model.Cidade;
+import com.hiagodonha.mc.model.Cliente;
+import com.hiagodonha.mc.model.Endereco;
 import com.hiagodonha.mc.model.Estado;
 import com.hiagodonha.mc.model.Produto;
+import com.hiagodonha.mc.model.enums.TipoCliente;
 
 @SpringBootApplication
 public class CursoApplication implements CommandLineRunner {
@@ -27,6 +32,10 @@ public class CursoApplication implements CommandLineRunner {
 	private EstadoDao estadoDao;
 	@Autowired
 	private CidadeDao cidadeDao;
+	@Autowired
+	private ClienteDao clienteDao;
+	@Autowired
+	private EnderecoDao enderecoDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoApplication.class, args);
@@ -65,6 +74,22 @@ public class CursoApplication implements CommandLineRunner {
 		
 		estadoDao.saveAll(Arrays.asList(est1,est2));
 		cidadeDao.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente(null, "Maria", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("1111111", "22222"));
+		
+		Endereco e1 = new Endereco(null, "rua teste", "2", "qd k lt 10", "vila", "746333300", cli1, c1);
+		Endereco e2 = new Endereco(null, "av matos", "105", "sala 800", "centro", "746333300", cli1, c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteDao.saveAll(Arrays.asList(cli1));
+		
+		enderecoDao.saveAll(Arrays.asList(e1,e2));
+		
+		
+		
 	}
 
 }
