@@ -16,7 +16,7 @@ import com.hiagodonha.mc.services.CategoriaService;
 import javassist.tools.rmi.ObjectNotFoundException;
 
  @RestController
- @RequestMapping("categorias")
+ @RequestMapping("/categorias")
  public class CategoriaRest {
 	 
 	 @Autowired
