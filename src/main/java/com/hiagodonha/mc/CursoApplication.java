@@ -1,5 +1,6 @@
 package com.hiagodonha.mc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,20 @@ import com.hiagodonha.mc.dao.CidadeDao;
 import com.hiagodonha.mc.dao.ClienteDao;
 import com.hiagodonha.mc.dao.EnderecoDao;
 import com.hiagodonha.mc.dao.EstadoDao;
+import com.hiagodonha.mc.dao.PagamentoDao;
+import com.hiagodonha.mc.dao.PedidoDao;
 import com.hiagodonha.mc.dao.ProdutoDao;
 import com.hiagodonha.mc.model.Categoria;
 import com.hiagodonha.mc.model.Cidade;
 import com.hiagodonha.mc.model.Cliente;
 import com.hiagodonha.mc.model.Endereco;
 import com.hiagodonha.mc.model.Estado;
+import com.hiagodonha.mc.model.Pagamento;
+import com.hiagodonha.mc.model.PagamentoComBoleto;
+import com.hiagodonha.mc.model.PagamentoComCartao;
+import com.hiagodonha.mc.model.Pedido;
 import com.hiagodonha.mc.model.Produto;
+import com.hiagodonha.mc.model.enums.EstadoPagamento;
 import com.hiagodonha.mc.model.enums.TipoCliente;
 
 @SpringBootApplication
@@ -36,6 +44,10 @@ public class CursoApplication implements CommandLineRunner {
 	private ClienteDao clienteDao;
 	@Autowired
 	private EnderecoDao enderecoDao;
+	@Autowired
+	private PagamentoDao pagamentoDao;
+	@Autowired
+	private PedidoDao pedidoDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoApplication.class, args);
@@ -88,7 +100,22 @@ public class CursoApplication implements CommandLineRunner {
 		
 		enderecoDao.saveAll(Arrays.asList(e1,e2));
 		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy HH:mm");
 		
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"),cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"),cli1, e2);
+		
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
+		
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null );		
+		ped2.setPagamento(pagto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		
+		pedidoDao.saveAll(Arrays.asList(ped1,ped2));
+		
+		pagamentoDao.saveAll(Arrays.asList(pagto1,pagto2));
 		
 	}
 
