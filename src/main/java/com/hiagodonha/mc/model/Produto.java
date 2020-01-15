@@ -2,13 +2,16 @@ package com.hiagodonha.mc.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -27,6 +30,26 @@ public class Produto implements Serializable {
 	@JsonBackReference
 	@ManyToMany
 	private List<Categoria> categorias = new ArrayList<Categoria>();
+	
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItemPedido> itens = new HashSet<>();
+	
+	public Produto() {}
+	
+	public Produto(Integer id, String nome, Double preco) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.preco = preco;
+	}
+	
+	public List<Pedido> getPedido() {
+		List<Pedido>list = new ArrayList<Pedido>();
+		for (ItemPedido x : itens) {
+			list.add(x.getPedido());
+		}
+		return list;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -51,13 +74,11 @@ public class Produto implements Serializable {
 		this.categorias = categorias;
 	}
 	
-	public Produto() {}
-	
-	public Produto(Integer id, String nome, Double preco) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.preco = preco;
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
 	}
 	
 	@Override
