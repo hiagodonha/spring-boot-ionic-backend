@@ -14,7 +14,6 @@ public class PagamentoComBoleto extends Pagamento {
 	private Date dataPagamento;
 	public PagamentoComBoleto() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public PagamentoComBoleto(Integer id, EstadoPagamento estado, Pedido pedido, Date dataPagamento, Date dataVencimento) {
 		super(id, estado, pedido);

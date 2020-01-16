@@ -13,6 +13,7 @@ import com.hiagodonha.mc.dao.CidadeDao;
 import com.hiagodonha.mc.dao.ClienteDao;
 import com.hiagodonha.mc.dao.EnderecoDao;
 import com.hiagodonha.mc.dao.EstadoDao;
+import com.hiagodonha.mc.dao.ItemPedidoDao;
 import com.hiagodonha.mc.dao.PagamentoDao;
 import com.hiagodonha.mc.dao.PedidoDao;
 import com.hiagodonha.mc.dao.ProdutoDao;
@@ -21,6 +22,7 @@ import com.hiagodonha.mc.model.Cidade;
 import com.hiagodonha.mc.model.Cliente;
 import com.hiagodonha.mc.model.Endereco;
 import com.hiagodonha.mc.model.Estado;
+import com.hiagodonha.mc.model.ItemPedido;
 import com.hiagodonha.mc.model.Pagamento;
 import com.hiagodonha.mc.model.PagamentoComBoleto;
 import com.hiagodonha.mc.model.PagamentoComCartao;
@@ -48,6 +50,8 @@ public class CursoApplication implements CommandLineRunner {
 	private PagamentoDao pagamentoDao;
 	@Autowired
 	private PedidoDao pedidoDao;
+	@Autowired
+	private ItemPedidoDao itemPedidoDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoApplication.class, args);
@@ -117,6 +121,18 @@ public class CursoApplication implements CommandLineRunner {
 		
 		pagamentoDao.saveAll(Arrays.asList(pagto1,pagto2));
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoDao.saveAll(Arrays.asList(ip1,ip2,ip3));
 	}
 
 }
