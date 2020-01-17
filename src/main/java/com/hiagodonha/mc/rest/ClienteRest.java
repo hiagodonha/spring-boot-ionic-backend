@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hiagodonha.mc.bo.ClienteService;
+import com.hiagodonha.mc.bo.ClienteBo;
 import com.hiagodonha.mc.model.Cliente;
 
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -16,7 +16,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
  public class ClienteRest {
 	 
 	 @Autowired
-	 ClienteService categoriaService;
+	 ClienteBo categoriaService;
 	 
 	 @GetMapping("/{id}")
 	 public Cliente get(@PathVariable Integer id) throws ObjectNotFoundException { //O PathVariablel está anotation é responsavel por pegar o valor que vem na url e joga na variavel passada por parametro

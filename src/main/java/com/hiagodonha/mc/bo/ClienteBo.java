@@ -11,7 +11,7 @@ import com.hiagodonha.mc.model.Cliente;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @Service
-public class ClienteService {
+public class ClienteBo {
 
 	@Autowired
 	private ClienteDao categoriaDao;

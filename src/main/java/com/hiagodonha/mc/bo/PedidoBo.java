@@ -11,7 +11,7 @@ import com.hiagodonha.mc.model.Pedido;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 @Service
-public class PedidoService {
+public class PedidoBo {
 
 	@Autowired
 	private PedidoDao pedidoDao;

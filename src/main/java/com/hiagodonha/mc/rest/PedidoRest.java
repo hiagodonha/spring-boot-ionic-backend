@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hiagodonha.mc.bo.PedidoService;
+import com.hiagodonha.mc.bo.PedidoBo;
 import com.hiagodonha.mc.dao.PedidoDao;
 import com.hiagodonha.mc.model.Pedido;
 
@@ -17,7 +17,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
  public class PedidoRest {
 	 
 	 @Autowired
-	 PedidoService pedidoService;
+	 PedidoBo pedidoService;
 	 
 	 @Autowired
 	 PedidoDao pedidoDao;
