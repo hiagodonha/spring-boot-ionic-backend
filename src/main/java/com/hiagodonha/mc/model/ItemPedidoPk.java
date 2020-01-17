@@ -25,7 +25,7 @@ public class ItemPedidoPk implements Serializable {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
-
+	
 	public Produto getProtudo() {
 		return produto;
 	}

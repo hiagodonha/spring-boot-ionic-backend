@@ -1,8 +1,9 @@
-package com.hiagodonha.mc.services;
+package com.hiagodonha.mc.bo;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.hiagodonha.mc.dao.CategoriaDao;
@@ -21,4 +22,9 @@ public class CategoriaService {
 		 return obj.orElseThrow(() -> new ObjectNotFoundException(
 				 		"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
+	
+	public Categoria insert(Categoria categoria) {
+		return categoriaDao.save(categoria);
+	}
+	
 }

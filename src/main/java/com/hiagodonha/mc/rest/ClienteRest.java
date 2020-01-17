@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hiagodonha.mc.bo.ClienteService;
 import com.hiagodonha.mc.model.Cliente;
-import com.hiagodonha.mc.services.ClienteService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 
