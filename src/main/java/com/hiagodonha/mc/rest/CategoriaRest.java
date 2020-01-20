@@ -1,7 +1,9 @@
 package com.hiagodonha.mc.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hiagodonha.mc.bo.CategoriaBo;
+import com.hiagodonha.mc.dto.CategoriaDTO;
 import com.hiagodonha.mc.model.Categoria;
 
  @RestController
@@ -41,6 +44,16 @@ import com.hiagodonha.mc.model.Categoria;
 	 public void delete(@PathVariable Integer id) {
 		 this.categoriaBo.delete(id);
 	 }
+	 
+	 @GetMapping("listar")
+	 public List<CategoriaDTO> findAll(){
+		List<Categoria> list = categoriaBo.findAll();
+		List<CategoriaDTO> listDto = new ArrayList<>();
+		list.forEach(cat ->
+			listDto.add(new CategoriaDTO(cat))
+		);
+		return listDto;
+ 	 }
 	 
 	 @GetMapping("teste")
 	 public String teste(@PathVariable String string1) {

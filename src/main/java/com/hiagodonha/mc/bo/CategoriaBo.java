@@ -1,5 +1,6 @@
 package com.hiagodonha.mc.bo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -32,9 +33,12 @@ public class CategoriaBo {
 		return categoriaDao.save(categoria);
 	}
 	
+	public List<Categoria> findAll(){
+		return (List<Categoria>) categoriaDao.findAll();
+	}
+	
 	public void delete(Integer id) {
 	try {
-		 find(id);
 		 this.categoriaDao.deleteById(id);
 		
 		} catch (ConstraintViolationException e) {
