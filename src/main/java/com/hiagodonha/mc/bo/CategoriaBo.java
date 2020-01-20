@@ -12,6 +12,7 @@ import com.hiagodonha.mc.exception.DataIntegrityException;
 import com.hiagodonha.mc.exception.ObjectNotFoundException;
 import com.hiagodonha.mc.model.Categoria;
 
+
 @Service
 public class CategoriaBo {
 
