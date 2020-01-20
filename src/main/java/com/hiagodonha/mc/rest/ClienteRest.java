@@ -20,7 +20,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
 	 
 	 @GetMapping("/{id}")
 	 public Cliente get(@PathVariable Integer id) throws ObjectNotFoundException { //O PathVariablel está anotation é responsavel por pegar o valor que vem na url e joga na variavel passada por parametro
-		 return categoriaService.bucar(id);
+		 return categoriaService.find(id);
 	 }
 	 
 }

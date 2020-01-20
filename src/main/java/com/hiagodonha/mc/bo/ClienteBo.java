@@ -16,7 +16,7 @@ public class ClienteBo {
 	@Autowired
 	private ClienteDao categoriaDao;
 	
-	public Cliente bucar(Integer id) throws ObjectNotFoundException {
+	public Cliente find(Integer id) throws ObjectNotFoundException {
 		 Optional<Cliente>obj = categoriaDao.findById(id);
 		 return obj.orElseThrow(() -> new ObjectNotFoundException(
 				 		"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));

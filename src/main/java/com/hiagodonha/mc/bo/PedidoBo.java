@@ -16,7 +16,7 @@ public class PedidoBo {
 	@Autowired
 	private PedidoDao pedidoDao;
 	
-	public Pedido bucar(Integer id) throws ObjectNotFoundException {
+	public Pedido find(Integer id) throws ObjectNotFoundException {
 		 Optional<Pedido>obj = pedidoDao.findById(id);
 		 return obj.orElseThrow(() -> new ObjectNotFoundException(
 				 		"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
