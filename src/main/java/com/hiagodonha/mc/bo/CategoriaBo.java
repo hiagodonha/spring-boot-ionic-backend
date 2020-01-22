@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.hiagodonha.mc.dao.CategoriaDao;
+import com.hiagodonha.mc.dto.CategoriaDTO;
 import com.hiagodonha.mc.exception.DataIntegrityException;
 import com.hiagodonha.mc.exception.ObjectNotFoundException;
 import com.hiagodonha.mc.model.Categoria;
@@ -54,5 +55,9 @@ public class CategoriaBo {
 			throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos");
 		}
 	
+	}
+	
+	public Categoria fromDTO(CategoriaDTO categoriaDto) {
+		return new Categoria(categoriaDto.getId(), categoriaDto.getNome());
 	}
 }
