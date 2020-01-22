@@ -23,6 +23,7 @@ import com.hiagodonha.mc.model.Categoria;
  @RequestMapping("/categorias")
  public class CategoriaRest {
 	 
+	 
 	 @Autowired
 	 CategoriaBo categoriaBo;
 	 
