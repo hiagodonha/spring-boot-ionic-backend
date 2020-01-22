@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.hiagodonha.mc.dao.CategoriaDao;
@@ -35,7 +38,12 @@ public class CategoriaBo {
 	}
 	
 	public List<Categoria> findAll(){
-		return (List<Categoria>) categoriaDao.findAll();
+		return  categoriaDao.findAll();
+	}
+	
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return categoriaDao.findAll(pageRequest);
 	}
 	
 	public void delete(Integer id) {
