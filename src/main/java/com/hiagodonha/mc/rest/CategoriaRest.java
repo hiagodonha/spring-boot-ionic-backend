@@ -34,9 +34,10 @@ import com.hiagodonha.mc.model.Categoria;
 		 return categoriaBo.find(id);
 	 }
 	 
+	 
 	 @PostMapping
-	 public Categoria insert(@Valid @RequestBody CategoriaDTO objDto) {
-		 Categoria categoria = categoriaBo.fromDTO(objDto);
+	 public Categoria insert(@Valid @RequestBody CategoriaDTO categoriaDto) {
+		 Categoria categoria = categoriaBo.fromDTO(categoriaDto);
 		 return categoriaBo.insert(categoria);
 	 }
 	 
