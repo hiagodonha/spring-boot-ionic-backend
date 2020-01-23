@@ -3,6 +3,8 @@ package com.hiagodonha.mc.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,14 +35,15 @@ import com.hiagodonha.mc.model.Categoria;
 	 }
 	 
 	 @PostMapping
-	 public Categoria insert(@RequestBody CategoriaDTO objDto) {
+	 public Categoria insert(@Valid @RequestBody CategoriaDTO objDto) {
 		 Categoria categoria = categoriaBo.fromDTO(objDto);
 		 return categoriaBo.insert(categoria);
 	 }
 	 
 	 @PutMapping("{/id}")
-	 public Categoria update(@PathVariable Integer id, @RequestBody Categoria categoria) {
-		 categoria = categoriaBo.update(id,categoria);
+	 public Categoria update(@Valid @RequestBody CategoriaDTO categoriaDto, @PathVariable Integer id) {
+		 Categoria categoria = categoriaBo.fromDTO(categoriaDto);
+		 categoria = categoriaBo.update(categoria.getId(), categoria);
 		 return categoria;
 	 }
 	 
