@@ -34,10 +34,9 @@ import com.hiagodonha.mc.model.Categoria;
 		 return categoriaBo.find(id);
 	 }
 	 
-	 
 	 @PostMapping
-	 public Categoria insert(@Valid @RequestBody CategoriaDTO categoriaDto) {
-		 Categoria categoria = categoriaBo.fromDTO(categoriaDto);
+	 public Categoria insert(@Valid @RequestBody CategoriaDTO objDto) {
+		 Categoria categoria = categoriaBo.fromDTO(objDto);
 		 return categoriaBo.insert(categoria);
 	 }
 	 
@@ -70,9 +69,9 @@ import com.hiagodonha.mc.model.Categoria;
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		 
-		Page<Categoria> listPage = categoriaBo.findPage(page, linesPerPage, orderBy, direction);
-		Page<CategoriaDTO> listPageDTO = listPage.map(i -> new CategoriaDTO(i));
-		return listPageDTO;
+		Page<Categoria> pag = categoriaBo.findPage(page, linesPerPage, orderBy, direction);
+		Page<CategoriaDTO> pageDto = pag.map(pg -> new CategoriaDTO(pg));
+		return pageDto;
 	
 	 }
 	 

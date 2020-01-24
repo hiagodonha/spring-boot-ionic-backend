@@ -5,13 +5,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.hiagodonha.mc.dao.ClienteDao;
 import com.hiagodonha.mc.dto.ClienteDTO;
+import com.hiagodonha.mc.exception.ObjectNotFoundException;
 import com.hiagodonha.mc.model.Cliente;
 
-import javassist.tools.rmi.ObjectNotFoundException;
+
 
 @Service
 public class ClienteBo {
@@ -25,10 +29,6 @@ public class ClienteBo {
 				 		"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
-	public void delete(Integer id) {
-		clienteDao.deleteById(id);
-	}
-	
 	public List<ClienteDTO> findAll(){
 		List<Cliente> list = clienteDao.findAll();
 		List<ClienteDTO> listDto = new ArrayList<>();
@@ -36,6 +36,31 @@ public class ClienteBo {
 			listDto.add(new ClienteDTO(cli));
 		});
 		return listDto;
+	}
+	
+	public void delete(Integer id) {
+		clienteDao.deleteById(id);
+	}
+	
+	public Cliente update(Integer id, Cliente cliente) {
+		Cliente newCliente = find(id);
+		updateDate(newCliente, cliente);
+		return clienteDao.save(newCliente);
+	}
+	
+	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return clienteDao.findAll(pageRequest);
+	}
+	
+	
+	public Cliente fromDTO(ClienteDTO clienteDto) {
+		return new Cliente(clienteDto.getId(),clienteDto.getNome(), clienteDto.getEmail(), null, null);
+	}
+	
+	private void updateDate(Cliente newCliente, Cliente cliente) {
+		newCliente.setNome(cliente.getNome());
+		newCliente.setEmail(cliente.getEmail());
 	}
 	
 }
