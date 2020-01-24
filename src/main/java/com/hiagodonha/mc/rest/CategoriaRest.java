@@ -40,19 +40,19 @@ import com.hiagodonha.mc.model.Categoria;
 		 return categoriaBo.insert(categoria);
 	 }
 	 
-	 @PutMapping("{/id}") //mudando para postmapping da certo
+	 @PutMapping("/{id}") //mudando para postmapping da certo
 	 public Categoria update(@Valid @RequestBody CategoriaDTO categoriaDto, @PathVariable Integer id) {
 		 Categoria categoria = categoriaBo.fromDTO(categoriaDto);
 		 categoria = categoriaBo.update(categoria.getId(), categoria);
 		 return categoria;
 	 }
 	 
-	 @DeleteMapping("{id}")
+	 @DeleteMapping("/{id}")
 	 public void delete(@PathVariable Integer id) {
 		 this.categoriaBo.delete(id);
 	 }
 	 
-	 @GetMapping("listar")
+	 @GetMapping("/listar")
 	 public List<CategoriaDTO> findAll(){
 		List<Categoria> list = categoriaBo.findAll();
 		List<CategoriaDTO> listDto = new ArrayList<>();
@@ -62,7 +62,7 @@ import com.hiagodonha.mc.model.Categoria;
 		return listDto;
  	 }
 	 
-	 @GetMapping("page") //PARA ESSE END POINT FUNCIONAR TIVER QUE TROCA <CRUDREPOSITORY> POR <JPAREPOSITORY>
+	 @GetMapping("/page") //PARA ESSE END POINT FUNCIONAR TIVER QUE TROCA <CRUDREPOSITORY> POR <JPAREPOSITORY>
 	 public Page<CategoriaDTO> findPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page, //O @REQUESTPARAM DIZ QUE NÃO É UM PARAMETRO OBRIGATÓRIO, MAS QUE SE ELE NÃO COLOCAR OS PARAMETRO ELE COMEÇARAM COM OS VALUEDEFAULT QUE SAO OS VALORES PADROES
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,

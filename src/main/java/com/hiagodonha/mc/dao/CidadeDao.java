@@ -7,5 +7,5 @@ import com.hiagodonha.mc.model.Cidade;
 
 @Repository
 public interface CidadeDao extends CrudRepository<Cidade, Integer>{
-
+	
 }

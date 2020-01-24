@@ -11,11 +11,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.hiagodonha.mc.dao.CidadeDao;
 import com.hiagodonha.mc.dao.ClienteDao;
+import com.hiagodonha.mc.dao.EnderecoDao;
 import com.hiagodonha.mc.dto.ClienteDTO;
+import com.hiagodonha.mc.dto.ClienteNewDTO;
 import com.hiagodonha.mc.exception.DataIntegrityException;
 import com.hiagodonha.mc.exception.ObjectNotFoundException;
+import com.hiagodonha.mc.model.Cidade;
 import com.hiagodonha.mc.model.Cliente;
+import com.hiagodonha.mc.model.Endereco;
+import com.hiagodonha.mc.model.enums.TipoCliente;
 
 
 
@@ -24,6 +30,19 @@ public class ClienteBo {
 
 	@Autowired
 	private ClienteDao clienteDao;
+	
+	@Autowired
+	private CidadeDao cidadeDao;
+	
+	@Autowired
+	private EnderecoDao enderecoDao;
+	
+	public Cliente insert(Cliente cliente) {
+		cliente = clienteDao.save(cliente);
+		enderecoDao.saveAll(cliente.getEnderecos());
+		
+		return cliente;
+	}
 	
 	public Cliente find(Integer id) throws ObjectNotFoundException {
 		 Optional<Cliente>obj = clienteDao.findById(id);
@@ -60,8 +79,20 @@ public class ClienteBo {
 	}
 	
 	
-	public Cliente fromDTO(ClienteDTO clienteDto) {
-		return new Cliente(clienteDto.getId(),clienteDto.getNome(), clienteDto.getEmail(), null, null);
+	public Cliente fromDTO(ClienteNewDTO clienteNewDto) {
+		Cliente cliente = new Cliente(null, clienteNewDto.getNome(), clienteNewDto.getEmail(), clienteNewDto.getCpfOuCnpj(), TipoCliente.toEnum(clienteNewDto.getTipo()));
+		Cidade cidade = cidadeDao.findById(clienteNewDto.getCidadeId()).get();
+		Endereco endereco = new Endereco(null,clienteNewDto.getLogradouro(),clienteNewDto.getNumero(), clienteNewDto.getComplemento(), clienteNewDto.getBairro(), clienteNewDto.getCep(), cliente, cidade);
+		cliente.getEnderecos().add(endereco);
+		cliente.getTelefones().add(clienteNewDto.getTelefone1());
+		
+		if(clienteNewDto.getTelefone2() != null) {
+			cliente.getTelefones().add(clienteNewDto.getTelefone2());
+		}
+		if(clienteNewDto.getTelefone3() != null) {
+			cliente.getTelefones().add(clienteNewDto.getTelefone3());
+		}
+		return cliente;
 	}
 	
 	private void updateDate(Cliente newCliente, Cliente cliente) {
