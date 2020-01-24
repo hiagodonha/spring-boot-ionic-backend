@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.hiagodonha.mc.dao.ClienteDao;
 import com.hiagodonha.mc.dto.ClienteDTO;
+import com.hiagodonha.mc.exception.DataIntegrityException;
 import com.hiagodonha.mc.exception.ObjectNotFoundException;
 import com.hiagodonha.mc.model.Cliente;
 
@@ -39,7 +41,11 @@ public class ClienteBo {
 	}
 	
 	public void delete(Integer id) {
-		clienteDao.deleteById(id);
+		try {
+			clienteDao.deleteById(id);
+		}catch(ConstraintViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir cliente com telefone ou pedido");
+		}
 	}
 	
 	public Cliente update(Integer id, Cliente cliente) {

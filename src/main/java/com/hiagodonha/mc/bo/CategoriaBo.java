@@ -34,8 +34,9 @@ public class CategoriaBo {
 	}
 	
 	public Categoria update(Integer id, Categoria categoria) {
-		find(id);
-		return categoriaDao.save(categoria);
+		Categoria newObj = find(categoria.getId());
+		updateDate(newObj, categoria);
+		return categoriaDao.save(newObj);
 	}
 	
 	public List<Categoria> findAll(){
@@ -59,5 +60,9 @@ public class CategoriaBo {
 	
 	public Categoria fromDTO(CategoriaDTO categoriaDto) {
 		return new Categoria(categoriaDto.getId(), categoriaDto.getNome());
+	}
+	
+	private void updateDate(Categoria newCategoria, Categoria cliente) {
+		newCategoria.setNome(cliente.getNome());
 	}
 }

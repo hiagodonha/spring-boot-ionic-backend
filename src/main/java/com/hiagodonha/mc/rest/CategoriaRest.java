@@ -40,7 +40,7 @@ import com.hiagodonha.mc.model.Categoria;
 		 return categoriaBo.insert(categoria);
 	 }
 	 
-	 @PutMapping("{/id}")
+	 @PutMapping("{/id}") //mudando para postmapping da certo
 	 public Categoria update(@Valid @RequestBody CategoriaDTO categoriaDto, @PathVariable Integer id) {
 		 Categoria categoria = categoriaBo.fromDTO(categoriaDto);
 		 categoria = categoriaBo.update(categoria.getId(), categoria);
