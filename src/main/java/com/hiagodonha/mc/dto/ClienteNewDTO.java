@@ -2,25 +2,51 @@ package com.hiagodonha.mc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.hiagodonha.mc.bo.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 		
-		private String nome;
-		private String email;
-		private String cpfOuCnpj;
-		private Integer tipo; 
+	@NotEmpty(message = "Preenchimento de NOME é obrigatório")
+	@Length(min = 5, max = 120, message = "No minimo 5 caracter e no max 120")
+	private String nome;
+	
+	@NotEmpty(message = "Preenchimento de EMAIL é obrigatório")
+	@Email(message = "Email inválido")
+	private String email;
+	
+	@NotEmpty(message = "Preenchimento de CPFOUCNPJ é obrigatório")
+	private String cpfOuCnpj;
+	
+	private Integer tipo; 
 		
-		private String logradouro;
-		private String numero;
-		private String complemento;
-		private String bairro;
-		private String cep;
+	@NotEmpty(message = "Preenchimento de LOGRADOURO é obrigatório")
+	private String logradouro;
+	
+	@NotEmpty(message = "Preenchimento de NUMERO é obrigatório")
+	private String numero;
+	
+	private String complemento;
+	
+	private String bairro;
+	
+	@NotEmpty(message = "Preenchimento de CEP é obrigatório")
+	private String cep;
+	
+	@NotEmpty(message = "Preenchimento de CEP é obrigatório")
+	private String telefone1;
+	
+	private String telefone2;
+	
+	private String telefone3;
 		
-		private String telefone1;
-		private String telefone2;
-		private String telefone3;
-		
-		private Integer cidadeId;
+	private Integer cidadeId;
 		
 		public ClienteNewDTO() {}
 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,8 +25,6 @@ import com.hiagodonha.mc.model.Cliente;
 import com.hiagodonha.mc.model.Endereco;
 import com.hiagodonha.mc.model.enums.TipoCliente;
 
-
-
 @Service
 public class ClienteBo {
 
@@ -37,6 +37,7 @@ public class ClienteBo {
 	@Autowired
 	private EnderecoDao enderecoDao;
 	
+	@Transactional
 	public Cliente insert(Cliente cliente) {
 		cliente = clienteDao.save(cliente);
 		enderecoDao.saveAll(cliente.getEnderecos());
