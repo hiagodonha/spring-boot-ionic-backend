@@ -47,8 +47,9 @@ public class ClienteNewDTO implements Serializable {
 	private String telefone3;
 		
 	private Integer cidadeId;
+	
+	public ClienteNewDTO() {}
 		
-		public ClienteNewDTO() {}
 
 		public String getNome() {
 			return nome;
