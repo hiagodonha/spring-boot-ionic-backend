@@ -8,4 +8,5 @@ import com.hiagodonha.mc.model.Categoria;
 @Repository
 public interface CategoriaDao extends JpaRepository<Categoria, Integer>{
 
+		
 }
