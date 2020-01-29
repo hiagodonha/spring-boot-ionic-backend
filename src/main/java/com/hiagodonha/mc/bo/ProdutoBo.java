@@ -34,7 +34,7 @@ public class ProdutoBo {
 	public Page<Produto> search(String nome, List<Integer> ids , Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		List<Categoria> categorias = categoriaDao.findAllById(ids);
-		return produtoDao.search(nome, categorias, pageRequest);
+		return produtoDao.findDistinctByNomeContainingAndCategoriasIn(nome, categorias, pageRequest);
 		
 	}
 }

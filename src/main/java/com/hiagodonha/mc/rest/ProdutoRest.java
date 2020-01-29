@@ -19,7 +19,7 @@ import com.hiagodonha.mc.rest.utils.URL;
 import javassist.tools.rmi.ObjectNotFoundException;
 
  @RestController
- @RequestMapping("/Produtos")
+ @RequestMapping("/produtos")
  public class ProdutoRest {
 	 
 	 @Autowired
@@ -34,7 +34,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
 		 return produtoBo.find(id);
 	 }
 
-	 @GetMapping() //PARA ESSE END POINT FUNCIONAR TIVER QUE TROCA <CRUDREPOSITORY> POR <JPAREPOSITORY>
+	 @GetMapping //PARA ESSE END POINT FUNCIONAR TIVER QUE TROCA <CRUDREPOSITORY> POR <JPAREPOSITORY>
 	 public Page<ProdutoDTO> findPage(
 			@RequestParam(value = "nome", defaultValue = "") String nome,
 			@RequestParam(value = "categorias", defaultValue = "") String categorias,
@@ -49,5 +49,4 @@ import javassist.tools.rmi.ObjectNotFoundException;
 		return pageDto;
 
 	 }
-	 
 }
