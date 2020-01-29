@@ -2,6 +2,8 @@ package com.hiagodonha.mc.dto;
 
 import java.io.Serializable;
 
+import com.hiagodonha.mc.model.Produto;
+
 public class ProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -11,6 +13,15 @@ public class ProdutoDTO implements Serializable {
 	
 	private Double preco;
 	
+	public ProdutoDTO() {}	
+	
+	public ProdutoDTO(Produto produto) {
+		this.id = produto.getId();
+		this.nome = produto.getNome();
+		this.preco = produto.getPreco();
+	}
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -34,7 +45,5 @@ public class ProdutoDTO implements Serializable {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-
-	public ProdutoDTO() {}
 
 }
