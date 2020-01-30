@@ -26,12 +26,12 @@ public class ItemPedidoPk implements Serializable {
 		this.pedido = pedido;
 	}
 	
-	public Produto getProtudo() {
+	public Produto getProduto() {
 		return produto;
 	}
 
-	public void setProtudo(Produto protudo) {
-		this.produto = protudo;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 	
 	@Override

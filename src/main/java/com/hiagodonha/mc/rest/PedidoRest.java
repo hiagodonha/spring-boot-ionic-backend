@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hiagodonha.mc.bo.PedidoBo;
-import com.hiagodonha.mc.dao.PedidoDao;
 import com.hiagodonha.mc.model.Pedido;
 
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -17,15 +16,12 @@ import javassist.tools.rmi.ObjectNotFoundException;
  public class PedidoRest {
 	 
 	 @Autowired
-	 PedidoBo pedidoService;
-	 
-	 @Autowired
-	 PedidoDao pedidoDao;
-	 
+	 PedidoBo pedidoBo;
+	 	 
 	 
 	 @GetMapping("/{id}")
-	 public Pedido get(@PathVariable Integer id) throws ObjectNotFoundException { //O PathVariablel está anotation é responsavel por pegar o valor que vem na url e joga na variavel passada por parametro
-		 return pedidoService.find(id);
+	 public Pedido find(@PathVariable Integer id) throws ObjectNotFoundException { //O PathVariablel está anotation é responsavel por pegar o valor que vem na url e joga na variavel passada por parametro
+		 return pedidoBo.find(id);
 	 }
 	 
 }
