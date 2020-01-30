@@ -75,10 +75,14 @@ import com.hiagodonha.mc.model.Categoria;
 	
 	 }
 	 
-	 @GetMapping("/teste")
-	 public String teste(@PathVariable String string1) {
-		string1 = "string1";
-		return string1;
+	 @GetMapping("/teste/{digita}")
+	 public String teste(@PathVariable String digita) {
+		 try {
+			
+		} catch (Exception e) {
+			
+		}
+		return digita;
 	 }
 	 
 }
