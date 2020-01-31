@@ -2,8 +2,6 @@ package com.hiagodonha.mc.rest;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,7 +34,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
 	 }
 
 	 @PostMapping
-	 public Cliente insert(@Valid @RequestBody ClienteNewDTO clienteNewDto) {
+	 public Cliente insert(@RequestBody ClienteNewDTO clienteNewDto) {
 		 Cliente cliente = clienteBo.fromDTO(clienteNewDto);
 		 return clienteBo.insert(cliente);
 	 }
