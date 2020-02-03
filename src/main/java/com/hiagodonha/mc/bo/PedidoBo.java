@@ -5,17 +5,17 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hiagodonha.mc.dao.ItemPedidoDao;
 import com.hiagodonha.mc.dao.PagamentoDao;
 import com.hiagodonha.mc.dao.PedidoDao;
-import com.hiagodonha.mc.dao.ProdutoDao;
+import com.hiagodonha.mc.exception.ObjectNotFoundException;
 import com.hiagodonha.mc.model.ItemPedido;
 import com.hiagodonha.mc.model.PagamentoComBoleto;
 import com.hiagodonha.mc.model.Pedido;
 import com.hiagodonha.mc.model.enums.EstadoPagamento;
 
-import javassist.tools.rmi.ObjectNotFoundException;
 
 @Service
 public class PedidoBo {
@@ -27,16 +27,17 @@ public class PedidoBo {
 	@Autowired
 	private PagamentoDao pagamentoDao;	
 	@Autowired
-	private ProdutoDao produtoDao;
+	private ProdutoBo produtoBo;
 	@Autowired
 	private ItemPedidoDao itemPedidoDao;
 	
-	public Pedido find(Integer id) throws ObjectNotFoundException {
+	public Pedido find(Integer id) throws ObjectNotFoundException{
 		 Optional<Pedido>obj = pedidoDao.findById(id);
 		 return obj.orElseThrow(() -> new ObjectNotFoundException(
 				 		"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
 	
+	@Transactional
 	public Pedido insert(Pedido pedido) {
 		pedido.setInstante(new Date()); //salvando o instante do pagamento
 		pedido.getPagamento().setEstado(EstadoPagamento.PENDENTE); //tipo
@@ -48,9 +49,15 @@ public class PedidoBo {
 		}
 		pagamentoDao.save(pedido.getPagamento()); //salvando
 		pedido = pedidoDao.save(pedido); //salvando
+		
+		for(ItemPedido ip : pedido.getItens()) {
+			ip.setPedido(pedido);
+		}
+		
 		for(ItemPedido ip : pedido.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoDao.findById(ip.getProduto().getId()).get().getPreco());
+			ip.setProduto(produtoBo.find(ip.getProduto().getId()));
+			ip.setPreco(produtoBo.find(ip.getProduto().getId()).getPreco());
 			ip.setPedido(pedido);
 		}
 		

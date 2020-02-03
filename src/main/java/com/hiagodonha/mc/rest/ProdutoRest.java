@@ -16,8 +16,6 @@ import com.hiagodonha.mc.dto.ProdutoDTO;
 import com.hiagodonha.mc.model.Produto;
 import com.hiagodonha.mc.rest.utils.URL;
 
-import javassist.tools.rmi.ObjectNotFoundException;
-
  @RestController
  @RequestMapping("/produtos")
  public class ProdutoRest {
@@ -30,7 +28,7 @@ import javassist.tools.rmi.ObjectNotFoundException;
 	 
 	 
 	 @GetMapping("/{id}")
-	 public Produto find(@PathVariable Integer id) throws ObjectNotFoundException { //O PathVariablel está anotation é responsavel por pegar o valor que vem na url e joga na variavel passada por parametro
+	 public Produto find(@PathVariable Integer id) { //O PathVariablel está anotation é responsavel por pegar o valor que vem na url e joga na variavel passada por parametro
 		 return produtoBo.find(id);
 	 }
 

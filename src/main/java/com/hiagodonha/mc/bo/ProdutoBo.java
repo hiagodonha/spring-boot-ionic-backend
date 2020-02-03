@@ -11,10 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.hiagodonha.mc.dao.CategoriaDao;
 import com.hiagodonha.mc.dao.ProdutoDao;
+import com.hiagodonha.mc.exception.ObjectNotFoundException;
 import com.hiagodonha.mc.model.Categoria;
 import com.hiagodonha.mc.model.Produto;
 
-import javassist.tools.rmi.ObjectNotFoundException;
+
 
 @Service
 public class ProdutoBo {
