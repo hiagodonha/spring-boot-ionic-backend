@@ -14,7 +14,7 @@ public class BoletoService {
 		
 	}
 	
-	public void preencherPagamento (PagamentoComBoleto pagto, Date instanteDoPedido) {
+	public void preencherPagamentoComBoleto (PagamentoComBoleto pagto, Date instanteDoPedido) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(instanteDoPedido);
 		cal.add(Calendar.DAY_OF_MONTH, 7);

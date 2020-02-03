@@ -24,14 +24,13 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instante;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 	
-	//
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
@@ -79,6 +78,10 @@ public class Pedido implements Serializable {
 
 	public Integer getId() {
 		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Pagamento getPagamento() {
@@ -129,5 +132,28 @@ public class Pedido implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Numero do pedido: ");
+		builder.append(getId());
+		builder.append(", isntante");
+		builder.append(getInstante());
+		builder.append(", Cliente: ");
+		builder.append(getCliente().getNome());
+		builder.append(", Estado pagamento ");
+		builder.append(getPagamento().getEstado().descricao());
+		builder.append("\nDetalhes:\n");
+		
+		for(ItemPedido ip : getItens()) {
+			builder.append(ip.toString());
+		}
+		builder.append("Valor total do pedido");
+		builder.append(getSomaPedido());
+		return builder.toString();
+	}
+	
+	
 
 }

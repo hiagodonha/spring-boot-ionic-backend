@@ -39,21 +39,18 @@ public class PedidoBo {
 	
 	@Transactional
 	public Pedido insert(Pedido pedido) {
+		pedido.setId(null);
 		pedido.setInstante(new Date()); //salvando o instante do pagamento
 		pedido.getPagamento().setEstado(EstadoPagamento.PENDENTE); //tipo
 		pedido.getPagamento().setPedido(pedido);
 		
 		if(pedido.getPagamento() instanceof PagamentoComBoleto) {
 			PagamentoComBoleto pagto = (PagamentoComBoleto)pedido.getPagamento();
-			boletoService.preencherPagamento(pagto, pedido.getInstante());	
+			boletoService.preencherPagamentoComBoleto(pagto, pedido.getInstante());	
 		}
 		pagamentoDao.save(pedido.getPagamento()); //salvando
 		pedido = pedidoDao.save(pedido); //salvando
-		
-		for(ItemPedido ip : pedido.getItens()) {
-			ip.setPedido(pedido);
-		}
-		
+	
 		for(ItemPedido ip : pedido.getItens()) {
 			ip.setDesconto(0.0);
 			ip.setProduto(produtoBo.find(ip.getProduto().getId()));
@@ -62,6 +59,7 @@ public class PedidoBo {
 		}
 		
 		itemPedidoDao.saveAll(pedido.getItens());
+		System.out.println(pedido);
 		return pedido;
 	}	
 		
