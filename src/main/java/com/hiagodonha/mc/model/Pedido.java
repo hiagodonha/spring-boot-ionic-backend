@@ -1,8 +1,11 @@
 package com.hiagodonha.mc.model;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -135,11 +138,14 @@ public class Pedido implements Serializable {
 
 	@Override
 	public String toString() {
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
 		StringBuilder builder = new StringBuilder();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy HH:mm:ss");
 		builder.append("Numero do pedido: ");
 		builder.append(getId());
-		builder.append(", isntante");
-		builder.append(getInstante());
+		builder.append(", isntante ");
+		builder.append(sdf.format(getInstante()));
 		builder.append(", Cliente: ");
 		builder.append(getCliente().getNome());
 		builder.append(", Estado pagamento ");
@@ -150,7 +156,7 @@ public class Pedido implements Serializable {
 			builder.append(ip.toString());
 		}
 		builder.append("Valor total do pedido");
-		builder.append(getSomaPedido());
+		builder.append(nf.format(getSomaPedido()));
 		return builder.toString();
 	}
 	

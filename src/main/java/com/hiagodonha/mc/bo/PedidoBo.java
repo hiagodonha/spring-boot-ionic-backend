@@ -30,6 +30,8 @@ public class PedidoBo {
 	private ProdutoBo produtoBo;
 	@Autowired
 	private ItemPedidoDao itemPedidoDao;
+	@Autowired
+	private ClienteBo clienteBo;
 	
 	public Pedido find(Integer id) throws ObjectNotFoundException{
 		 Optional<Pedido>obj = pedidoDao.findById(id);
@@ -41,6 +43,7 @@ public class PedidoBo {
 	public Pedido insert(Pedido pedido) {
 		pedido.setId(null);
 		pedido.setInstante(new Date()); //salvando o instante do pagamento
+		pedido.setCliente(clienteBo.find(pedido.getCliente().getId()));
 		pedido.getPagamento().setEstado(EstadoPagamento.PENDENTE); //tipo
 		pedido.getPagamento().setPedido(pedido);
 		
@@ -48,8 +51,8 @@ public class PedidoBo {
 			PagamentoComBoleto pagto = (PagamentoComBoleto)pedido.getPagamento();
 			boletoService.preencherPagamentoComBoleto(pagto, pedido.getInstante());	
 		}
-		pagamentoDao.save(pedido.getPagamento()); //salvando
 		pedido = pedidoDao.save(pedido); //salvando
+		pagamentoDao.save(pedido.getPagamento()); //salvando
 	
 		for(ItemPedido ip : pedido.getItens()) {
 			ip.setDesconto(0.0);
