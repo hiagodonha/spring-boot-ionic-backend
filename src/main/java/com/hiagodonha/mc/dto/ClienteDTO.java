@@ -7,8 +7,10 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.hiagodonha.mc.bo.validation.ClienteUpdate;
 import com.hiagodonha.mc.model.Cliente;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
