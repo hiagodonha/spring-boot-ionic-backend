@@ -19,3 +19,6 @@ spring:
       hibernate:
         temp.use_jdbc_metadata_defaults: false  
 
+default:
+    sender: hiagodefenix@gmail.com
+    recipent: hiagodefenix@gmail.com
