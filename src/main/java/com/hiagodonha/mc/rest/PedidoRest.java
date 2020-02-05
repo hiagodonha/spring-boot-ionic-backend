@@ -32,5 +32,6 @@ import javassist.tools.rmi.ObjectNotFoundException;
 	 public Pedido insert(@Valid @RequestBody Pedido pedido) {
 		 return pedidoBo.insert(pedido);
 	 }
+	 //update//
 	 
 }
