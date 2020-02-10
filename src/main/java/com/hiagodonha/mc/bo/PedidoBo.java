@@ -22,16 +22,24 @@ public class PedidoBo {
 
 	@Autowired
 	private PedidoDao pedidoDao;
+	
 	@Autowired
 	private BoletoService boletoService;
+	
 	@Autowired
-	private PagamentoDao pagamentoDao;	
+	private PagamentoDao pagamentoDao;
+	
 	@Autowired
 	private ProdutoBo produtoBo;
+	
 	@Autowired
 	private ItemPedidoDao itemPedidoDao;
+	
 	@Autowired
 	private ClienteBo clienteBo;
+	
+	@Autowired(required = true)
+	private EmailBo emailBo;
 	
 	public Pedido find(Integer id) throws ObjectNotFoundException{
 		 Optional<Pedido>obj = pedidoDao.findById(id);
@@ -62,7 +70,7 @@ public class PedidoBo {
 		}
 		
 		itemPedidoDao.saveAll(pedido.getItens());
-		System.out.println(pedido);
+		emailBo.sendOrderConfimationEmail(pedido);
 		return pedido;
 	}	
 		
