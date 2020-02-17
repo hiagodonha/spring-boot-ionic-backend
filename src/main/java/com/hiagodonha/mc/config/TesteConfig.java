@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Profile;
 import com.hiagodonha.mc.bo.EmailBo;
 import com.hiagodonha.mc.bo.MockEmailBo;
 
-@Configuration
 @Profile("test")
+@Configuration
 public class TesteConfig {
 	
 	@Bean

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,8 @@ import com.hiagodonha.mc.model.PagamentoComBoleto;
 import com.hiagodonha.mc.model.Pedido;
 import com.hiagodonha.mc.model.enums.EstadoPagamento;
 
-
 @Service
-public class PedidoBo {
+public class PedidoBo extends AbstractEMailBo {
 
 	@Autowired
 	private PedidoDao pedidoDao;
@@ -70,8 +70,12 @@ public class PedidoBo {
 		}
 		
 		itemPedidoDao.saveAll(pedido.getItens());
-		emailBo.sendOrderConfimationEmail(pedido);
+		//emailBo.sendOrderConfimationEmail(pedido);
 		return pedido;
+	}
+
+	@Override
+	public void sendEmail(SimpleMailMessage msg) {
 	}	
 		
 }
