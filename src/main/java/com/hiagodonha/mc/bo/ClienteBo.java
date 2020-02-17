@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,9 @@ import com.hiagodonha.mc.model.enums.TipoCliente;
 
 @Service
 public class ClienteBo {
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	@Autowired
 	private ClienteDao clienteDao;
@@ -81,7 +85,7 @@ public class ClienteBo {
 	
 	
 	public Cliente fromDTO(ClienteNewDTO clienteNewDto) {
-		Cliente cliente = new Cliente(null, clienteNewDto.getNome(), clienteNewDto.getEmail(), clienteNewDto.getCpfOuCnpj(), TipoCliente.toEnum(clienteNewDto.getTipo()));
+		Cliente cliente = new Cliente(null, clienteNewDto.getNome(), clienteNewDto.getEmail(), clienteNewDto.getCpfOuCnpj(), TipoCliente.toEnum(clienteNewDto.getTipo()), encoder.encode(clienteNewDto.getSenha()));
 		Cidade cidade = cidadeDao.findById(clienteNewDto.getCidadeId()).get();
 		Endereco endereco = new Endereco(null,clienteNewDto.getLogradouro(),clienteNewDto.getNumero(), clienteNewDto.getComplemento(), clienteNewDto.getBairro(), clienteNewDto.getCep(), cliente, cidade);
 		cliente.getEnderecos().add(endereco);

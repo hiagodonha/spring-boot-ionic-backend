@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.hiagodonha.mc.dao.CategoriaDao;
 import com.hiagodonha.mc.dao.CidadeDao;
@@ -34,6 +35,8 @@ import com.hiagodonha.mc.model.enums.TipoCliente;
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	@Autowired
 	private CategoriaDao categoriaDao;
 	@Autowired
@@ -121,7 +124,7 @@ public class CursomcApplication implements CommandLineRunner {
 		estadoDao.saveAll(Arrays.asList(est1, est2));
 		cidadeDao.saveAll(Arrays.asList(c1, c2, c3));
 		
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, encoder.encode("123456"));
 		
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
