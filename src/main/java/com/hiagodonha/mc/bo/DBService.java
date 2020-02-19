@@ -1,13 +1,12 @@
-package com.hiagodonha.mc;
+package com.hiagodonha.mc.bo;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.hiagodonha.mc.dao.CategoriaDao;
 import com.hiagodonha.mc.dao.CidadeDao;
@@ -33,9 +32,9 @@ import com.hiagodonha.mc.model.enums.EstadoPagamento;
 import com.hiagodonha.mc.model.enums.Perfil;
 import com.hiagodonha.mc.model.enums.TipoCliente;
 
-@SpringBootApplication
-public class CursomcApplication implements CommandLineRunner {
-	
+@Service
+public class DBService {
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	@Autowired
@@ -56,13 +55,8 @@ public class CursomcApplication implements CommandLineRunner {
 	private PagamentoDao pagamentoDao;
 	@Autowired
 	private ItemPedidoDao itemPedidoDao;
-	
-	public static void main(String[] args) {
-		SpringApplication.run(CursomcApplication.class, args);
-	}
 
-	@Override
-	public void run(String... args) throws Exception {
+	public void instantiateTestDatabase() throws ParseException {
 		
 		Categoria cat1 = new Categoria(null, "Informática");
 		Categoria cat2 = new Categoria(null, "Escritório");
@@ -129,8 +123,8 @@ public class CursomcApplication implements CommandLineRunner {
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
 		Cliente cli2 = new Cliente(null, "Ana ana", "haigodefenix@hotmail.com", "61484466004", TipoCliente.PESSOAFISICA, encoder.encode("123456"));
-		cli2.getTelefones().addAll(Arrays.asList("33224455", "88779966"));
 		cli2.addPerfil(Perfil.ADMIN);
+		cli2.getTelefones().addAll(Arrays.asList("33224455", "88779966"));
 		
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
