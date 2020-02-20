@@ -22,3 +22,6 @@ spring:
 default:
    sender: hiagodefenix@gmail.com
    recipent: hiagodefenix@gmail.com
+
+jwt:
+    secret: SequenciaDeCaracteresParaAssinarToken
