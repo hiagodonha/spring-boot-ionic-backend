@@ -25,3 +25,4 @@ default:
 
 jwt:
     secret: SequenciaDeCaracteresParaAssinarToken
+    expiration: 86400000

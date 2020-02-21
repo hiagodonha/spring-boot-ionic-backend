@@ -28,21 +28,17 @@ public class ClienteNewDTO implements Serializable {
 	
 	@NotEmpty(message = "Preenchimento de SENHA é obrigatório")
 	private String senha;
-
-	@NotEmpty(message = "Preenchimento de LOGRADOURO é obrigatório")
+	
 	private String logradouro;
 
-	@NotEmpty(message = "Preenchimento de NUMERO é obrigatório")
 	private String numero;
 
 	private String complemento;
 
 	private String bairro;
-
-	@NotEmpty(message = "Preenchimento de CEP é obrigatório")
+	
 	private String cep;
 
-	@NotEmpty(message = "Preenchimento de TELEFONE1 é obrigatório")
 	private String telefone1;
 
 	private String telefone2;

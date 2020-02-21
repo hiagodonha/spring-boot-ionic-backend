@@ -125,10 +125,10 @@ public class CursomcApplication implements CommandLineRunner {
 		estadoDao.saveAll(Arrays.asList(est1, est2));
 		cidadeDao.saveAll(Arrays.asList(c1, c2, c3));
 		
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, encoder.encode("123456"));
+		Cliente cli1 = new Cliente(null, "Maria Silva", "hiagodefenix@hotmail.com", "94071035013", TipoCliente.PESSOAFISICA, encoder.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
-		Cliente cli2 = new Cliente(null, "Ana ana", "hiagodefenix@hotmail.com", "61484466004", TipoCliente.PESSOAFISICA, encoder.encode("123456"));
+		Cliente cli2 = new Cliente(null, "Ana ana", "hiagodefenix@gmail.com", "83366551070", TipoCliente.PESSOAFISICA, encoder.encode("123"));
 		cli2.getTelefones().addAll(Arrays.asList("33224455", "88779966"));
 		cli2.addPerfil(Perfil.ADMIN);
 		

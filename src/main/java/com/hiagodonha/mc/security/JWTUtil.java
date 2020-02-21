@@ -14,10 +14,11 @@ public class JWTUtil {
 	@Value("${jwt.secret}")
 	private String secret;
 	
-	@Value("${jwt.secret}")
-	private String expiration;
+	@Value("${jwt.expiration}")
+	private Long expiration;
 	
 	public String generateToken(String username) {
+		System.out.println("aqui2");
 		return Jwts.builder()
 				.setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + expiration))
